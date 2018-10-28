@@ -1,1 +1,1 @@
-# vegasSidebars
+Awesome Vegas Sidebars
