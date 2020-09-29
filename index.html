@@ -2,53 +2,128 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Боковая панель ::: Vegas Project ::: Plugins</title>
-	<link href="./css/main.css" rel="stylesheet" type="text/css">
-	<link href="./dist/css/vegasSidebar.css" rel="stylesheet" type="text/css">
+	<title>vegas sidebars</title>
+	<link rel="shortcut icon" href="favicon.ico">
+	
+	<!-- Main css -->
+	<link href="dist/css/vgsidebars.css" rel="stylesheet" type="text/css">
+	<link href="dist/css/vgsidebars-theme.css" rel="stylesheet" type="text/css">
+	<!-- tmpl css -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css">
+	<link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link href="demo/css/demo.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<div>
-		<h1>Awesome Vegas Sidebar</h1>
-		<p>-- <a href="#" class="open-sidebar" data-target="#left-panel">open <b>left</b></a> --</p>
-		<p>-- <a href="#" class="open-sidebar" data-target="#right-panel">open <b>right</b></a> --</p>
-		<p>-- <a href="#" class="open-sidebar" data-target="#top-panel">open <b>top</b></a> --</p>
-		<p>-- <a href="#" class="open-sidebar" data-target="#bottom-panel">open <b>bottom</b></a> --</p>
-	</div>
-
-	<div id="left-panel" class="vg-sidebar left vg-theme-dark">
-		<div class="vg-sidebar-content">
-			<h4>Left Sidebar</h4>
-			<p>Some panel</p>
-			<p><a href="#" class="close-sidebar">Close panel</a></p>
+	<div class="wrapper">
+		<div class="container">
+			<div class="header">
+				<div class="row">
+					<div class="col-md-3 col-8">
+						<div class="logo">
+							<a href="/">
+								<img src="https://vegas-dev.com/assets/_frontend/images/logo/vegas-logo.png" class="img-fluid" alt="vegas navigation">
+							</a>
+						</div>
+					</div>
+					<div class="col-md-9 col-4 d-flex align-items-center">
+						<h1>
+							Vegas Sidebars
+							<a href="https://www.npmjs.com/package/vgnav" target="_blank"><img src="https://img.shields.io/npm/v/vgnav.svg?style=flat-square&maxAge=600"></a>
+							<a href="http://www.opensource.org/licenses/mit-license" target="_blank"><img src="https://img.shields.io/npm/l/vgnav.svg?style=flat-square"></a>
+						</h1>
+					</div>
+				</div>
+			</div>
+			
+			<div class="content">
+				<p>
+					App for creating custom sidebars, is written in JQuery, html5 and ССS3 using the compiler SCSS
+				</p>
+				
+				<ul class="main-links">
+					<li><a href="//vegas-dev.com/" target="_blank">home page</a></li>
+					<li><a href="https://github.com/vegas-dev" target="_blank">github</a></li>
+				</ul>
+				
+				<h3 class="mt-4">Demo</h3>
+				<p>-- <a href="#" data-toggle="vg-sidebar" data-target="#left-panel" data-placement="left">open <b>left</b></a> --</p>
+				<p>-- <a href="#" data-toggle="vg-sidebar" data-target="#right-panel" data-placement="right">open <b>right</b></a> --</p>
+				<p>-- <a href="#" data-toggle="vg-sidebar" data-target="#top-panel" data-placement="top">open <b>top</b></a> --</p>
+				<p>-- <a href="#" data-toggle="vg-sidebar" data-target="#bottom-panel" data-placement="bottom">open <b>bottom</b></a> --</p>
+				
+				<h3 class="mt-4">Install</h3>
+				<code>
+					npm i vgnav
+				</code>
+				<p class="mt-3">or download <a href="https://github.com/vegas-dev/vegas-sidebars/archive/master.zip">here</a></p>
+				
+				<h3 class="mt-4">Dependencies</h3>
+				<p class="mt-3">jQuery >= 3</p>
+				
+				<h3 class="mt-4">Usage</h3>
+				<h5>HTML markup</h5>
+				<pre><code class="hljs html">
+	&lt;nav class="vg-nav vg-nav-lg"&gt;
+	    &lt;ul&gt;
+	        &lt;li class="active"&gt;&lt;a href="/"&gt;Home page&lt;/a&gt;&lt;/li&gt;
+			&lt;li class="dropdown"&gt;
+	            &lt;a href="#"&gt;Left dropdown&lt;/a&gt;
+	            &lt;ul class="left"&gt;
+	                ...
+	            &lt;/ul&gt;
+	        &lt;/li&gt;
+	        &lt;li class="dropdown-mega"&gt;
+	            &lt;a href="#"&gt;Mega Menu&lt;/a&gt;
+	            &lt;div class="dropdown-mega-container"&gt;
+	                ...
+	            &lt;/div&gt;
+	        &lt;/li&gt;
+	        &lt;li class="dropdown"&gt;
+	            &lt;a href="#"&gt;Right dropdown&lt;/a&gt;
+	            &lt;ul class="right"&gt;
+			       ...
+	            &lt;/ul&gt;
+	        &lt;/li&gt;
+	    &lt;/ul&gt;
+	&lt;/nav&gt;
+					</code></pre>
+				
+				<h5 class="mt-3">JQuery init</h5>
+				<pre><code class="hljs javascript">
+	$(document).ready(function () {
+	    $('.vg-nav').vegasMenu();
+	})
+					</code></pre>
+				
+				<h5 class="mt-3">Hamburger folding. Use the following classes next to the main:</h5>
+				<pre><code class="css">
+	.vg-nav-xl // Desktop and laptop
+	.vg-nav-lg // Tablets landscape
+	.vg-nav-md // Tablets portrait
+	.vg-nav-sm // Phone landscape
+	.vg-nav-xs // Phone portrait
+					</code></pre>
+				
+				<h5 class="mt-3">Opening the expanded menu on hover:</h5>
+				<pre><code class="css">
+	.vg-nav-hover
+					</code></pre>
+				
+				<h3 class="mt-4">License</h3>
+				<p>Is published under the <a href="http://www.opensource.org/licenses/mit-license" target="_blank">MIT license</a></p>
+			</div>
+			
+			<div class="footer">
+				<p>© Copyright <a href="https://vegas-dev.com/">vegas-dev.com</a> 2020.</p>
+			</div>
 		</div>
 	</div>
-
-	<div id="right-panel" class="vg-sidebar right vg-theme-dark">
-		<div class="vg-sidebar-content">
-			<h4>Right Sidebar</h4>
-			<p>Some panel</p>
-			<p><a href="#" class="close-sidebar">Close panel</a></p>
-		</div>
-	</div>
-
-	<div id="top-panel" class="vg-sidebar top vg-theme-dark">
-		<div class="vg-sidebar-content">
-			<h4>Top Sidebar</h4>
-			<p>Some panel</p>
-			<p><a href="#" class="close-sidebar">Close panel</a></p>
-		</div>
-	</div>
-
-	<div id="bottom-panel" class="vg-sidebar bottom vg-theme-dark">
-		<div class="vg-sidebar-content">
-			<h4>Bottom Sidebar</h4>
-			<p>Some panel</p>
-			<p><a href="#" class="close-sidebar">Close panel</a></p>
-		</div>
-	</div>
-
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="dist/js/jquery.vegasSidebar.js"></script>
-	<script src="js/script.js"></script>
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/javascript.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/css.min.js"></script>
+	<script src="/dist/js/vgsidebars.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,42 @@
+{
+  "name": "vgsidebars",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vegas-dev/vegas-sidebars.git"
+  },
+  "author": {
+    "name": "Vegas Studio",
+    "url": "https://vegas-dev.com",
+    "email": "vegas.dev.studio@gmail.com"
+  },
+  "keywords": [
+    "sidebar",
+    "jquery",
+    "css3",
+    "html5"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vegas-dev/vegas-sidebars/issues"
+  },
+  "homepage": "https://github.com/vegas-dev/vegas-sidebars#readme",
+  "devDependencies": {
+    "mkdirp": "^0.5.1",
+    "node-sass": "^4.14.1",
+    "npm-run-all": "^2.1.1",
+    "onchange": "^2.4.0",
+    "rimraf": "^2.5.4"
+  },
+  "scripts": {
+    "clean": "rimraf dist/{css/*,js/*}",
+    "scss": "node-sass --output-style compressed -o dist/css assets/scss",
+    "uglify": "mkdirp dist/js -p && uglifyjs assets/js/*.js --compress --mangle --output dist/js/vgsidebars.min.js",
+    "build:css": "run-s scss",
+    "build:js": "run-s uglify",
+    "build": "run-s build:*",
+    "watch:css": "onchange \"assets/scss\" -- run-s build:css",
+    "watch:js": "onchange \"assets/js\" -- run-s build:js",
+    "watch": "run-p watch:*"
+  }
+}
