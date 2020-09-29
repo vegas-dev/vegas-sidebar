@@ -1,1 +1,5 @@
-"use strict";var NAME="vg-sidebar",DATA_KEY="vg.sidebar";class VgSidebars{constructor(){}show(){}}
+"use strict";
+
+function great(input) {
+  return input !== null && input !== void 0 ? input : 'Hello world';
+}
