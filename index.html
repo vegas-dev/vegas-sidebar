@@ -131,5 +131,17 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/javascript.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/css.min.js"></script>
 	<script src="/dist/js/vgsidebars.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$('[data-toggle="vg-sidebar"]').click(function () {
+			$(this).vgSidebar('show', {
+				placement: 'left'
+			});
+			
+			return false;
+		});
+	});
+</script>
 </body>
 </html>
