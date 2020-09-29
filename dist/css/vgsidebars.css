@@ -1,1 +1,1 @@
-.vg-sidebar{position:relative}
+.vg-sidebar:not(.show){display:none}

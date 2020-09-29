@@ -1,3 +1,5 @@
 .vg-sidebar {
-	position: relative;
+	&:not(.show) {
+	  display: none;
+	}
 }

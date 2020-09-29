@@ -1,16 +1,12 @@
-(function ($) {
-	"use strict";
-	
-	$.fn.vegasSidebars = function (options) {
-		options = $.extend({
+const NAME = 'vg-sidebar';
+const DATA_KEY = 'vg.sidebar';
 
-		}, arguments[0] || {});
-
-		
-		return this;
-	};
+class VgSidebars {
+	constructor(element, options) {
 	
-	$(document).ready(function () {
-		$('[data-toggle=vg-sidebar]').vegasSidebars();
-	});
-});
+	}
+	
+	show() {
+	
+	}
+}
