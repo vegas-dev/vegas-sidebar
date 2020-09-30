@@ -5,10 +5,23 @@
 	
 	const CLASS_SIDEBAR_SHOW = 'show';
 	
+	let afterOpen = $.noop,
+		beforeOpen = $.noop;
+	
+	let afterClose = $.noop,
+		beforeClose = $.noop;
+	
+	let afterAjaxLoad = $.noop,
+		beforeAjaxLoad = $.noop;
+	
 	let params = {
 		target: '',
 		placement: 'right',
-		ajax: false
+		ajax: {
+			target: '',
+			route: '',
+			method: 'get'
+		}
 	};
 	
 	let methods = {
@@ -19,16 +32,16 @@
 			
 			return this;
 		},
-		hide : function( ) {
-
+		hide : function(callback) {
+		
 		}
 	};
 	
 	$.fn.vgSidebar = (method) => {
-		if ( methods[method] ) {
-			return methods[method].apply(this, Array.prototype.slice.call( arguments, 1 ));
-		} else if ( typeof method === 'object' || ! method ) {
-			return methods.show.apply( this, arguments );
+		if (methods[method]) {
+			return methods[method].apply(this, arguments);
+		} else if ( typeof method === 'object' || !method ) {
+			return methods.show.apply(this, arguments);
 		} else {
 			$.error( 'Метод с именем ' +  method + ' не существует ' );
 		}
