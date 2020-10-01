@@ -1,7 +1,7 @@
 # vegasSidebars
 App for creating custom sidebars, is written in JQuery, html5 and ССS3 using the compiler SCSS
 
-[![npm](https://img.shields.io/npm/v/vgsidebar.svg?style=flat-square&maxAge=600)](https://www.npmjs.com/package/vgnav) [![npm](https://img.shields.io/npm/l/vgsidebar.svg?style=flat-square)]()
+[![npm](https://img.shields.io/npm/v/vgsidebar.svg?style=flat-square&maxAge=600)](https://www.npmjs.com/package/vgsidebar) [![npm](https://img.shields.io/npm/l/vgsidebar.svg?style=flat-square)]()
 
 ## Demo
 https://vegas-dev.github.io/vegas-sidebar/
