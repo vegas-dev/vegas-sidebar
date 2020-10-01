@@ -43,7 +43,7 @@
         });
         return this;
       } else {
-        $.error('Боковая панель не найдена');
+        $.error('Sidebar not found');
       }
     },
     close: function close(callback) {
@@ -68,7 +68,7 @@
 
         return this;
       } else {
-        $.error('Боковая панель не найдена');
+        $.error('Sidebar not found');
       }
     }
   };
@@ -79,7 +79,7 @@
     } else if (typeof method === 'object' || !method) {
       return methods.open.apply(this, arguments);
     } else {
-      $.error('Метод "' + method + '" не найден');
+      $.error('Method "' + method + '" not found');
     }
   };
 
@@ -94,8 +94,7 @@
       variables: {}
     }
   };
-})(jQuery); // Автоматический вызов плагина
-
+})(jQuery);
 
 $(document).ready(function () {
   $(document).on('click', '[data-toggle="vg-sidebar"]', function () {
