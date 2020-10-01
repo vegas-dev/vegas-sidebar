@@ -4,15 +4,21 @@
   var NAME = 'vgsidebar';
   var CLASS_NAME = 'vg-sidebar';
   var MAIN_CONTAINER = 'body';
+  var afterOpen = $.noop,
+      beforeOpen = $.noop;
+  var afterClose = $.noop,
+      beforeClose = $.noop;
+  var afterAjaxLoad = $.noop,
+      beforeAjaxLoad = $.noop;
   var settings = {},
       methods = {
-    open: (options, callback) => {
+    open: function open(options, callback) {
       settings = $.extend($.fn[NAME].defaults, options);
 
       if (settings.target && $(settings.target).length) {
         var $self = $(settings.target),
             width_scrollbar = window.innerWidth - document.documentElement.clientWidth;
-        $self.addClass('open').addClass(settings.placement);
+        $self.addClass('open');
         $(MAIN_CONTAINER).addClass(CLASS_NAME + '-open');
 
         if (settings.content_over) {
@@ -22,16 +28,25 @@
           });
         }
 
-        if (settings.content_overlay) {
-          $(MAIN_CONTAINER).append('<div class="' + CLASS_NAME + '-overlay show"><div class="overlay"></div></div>');
-        }
+        $(document).on('mouseup.' + NAME, function (e) {
+          var container = $('.' + CLASS_NAME);
 
+          if (container.has(e.target).length === 0) {
+            $.fn[NAME]('close');
+          }
+
+          return false;
+        });
+        $('[data-dismiss="vg-sidebar"]').on('click.' + NAME, function () {
+          $.fn.vgsidebar('close');
+          return false;
+        });
         return this;
       } else {
         $.error('Боковая панель не найдена');
       }
     },
-    close: callback => {
+    close: function close(callback) {
       if (settings.target && $(settings.target).length) {
         var $self = $(settings.target);
         $self.removeClass('open');
@@ -50,6 +65,8 @@
             $overlay.remove();
           }, 400);
         }
+
+        return this;
       } else {
         $.error('Боковая панель не найдена');
       }
@@ -70,7 +87,6 @@
     target: '',
     placement: 'right',
     content_over: true,
-    content_overlay: true,
     ajax: {
       target: '',
       route: '',
@@ -82,7 +98,7 @@
 
 
 $(document).ready(function () {
-  $('[data-toggle="vg-sidebar"]').click(function () {
+  $(document).on('click', '[data-toggle="vg-sidebar"]', function () {
     var $self = $(this),
         data = $self.data(),
         params = {
@@ -91,12 +107,5 @@ $(document).ready(function () {
     params = $.extend(data, params);
     $.fn.vgsidebar('open', params);
     return false;
-  });
-  $(document).mouseup(function (e) {
-    var container = $('.vg-sidebar');
-
-    if (container.has(e.target).length === 0) {
-      $.fn.vgsidebar('close');
-    }
   });
 });

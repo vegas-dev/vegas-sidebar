@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>vegas sidebars</title>
+	<title>vegas sidebar</title>
 	<link rel="shortcut icon" href="favicon.ico">
 
 	<!-- Main css -->
@@ -28,9 +28,9 @@
 					</div>
 					<div class="col-md-9 col-4 d-flex align-items-center">
 						<h1>
-							Vegas Sidebars
-							<a href="https://www.npmjs.com/package/vgnav" target="_blank"><img src="https://img.shields.io/npm/v/vgnav.svg?style=flat-square&maxAge=600"></a>
-							<a href="http://www.opensource.org/licenses/mit-license" target="_blank"><img src="https://img.shields.io/npm/l/vgnav.svg?style=flat-square"></a>
+							Vegas Sidebar
+							<a href="https://www.npmjs.com/package/vgsidebar" target="_blank"><img src="https://img.shields.io/npm/v/vgsidebar.svg?style=flat-square&maxAge=600"></a>
+							<a href="http://www.opensource.org/licenses/mit-license" target="_blank"><img src="https://img.shields.io/npm/l/vgsidebar.svg?style=flat-square"></a>
 						</h1>
 					</div>
 				</div>
@@ -47,68 +47,44 @@
 				</ul>
 
 				<h3 class="mt-4">Demo</h3>
-				<p>-- <a href="#" data-toggle="vg-sidebar" data-target="#left-panel" data-placement="left">open <b>left</b></a> --</p>
-				<p>-- <a href="#" data-toggle="vg-sidebar" data-target="#right-panel" data-placement="right">open <b>right</b></a> --</p>
-				<p>-- <a href="#" data-toggle="vg-sidebar" data-target="#top-panel" data-placement="top">open <b>top</b></a> --</p>
-				<p>-- <a href="#" data-toggle="vg-sidebar" data-target="#bottom-panel" data-placement="bottom">open <b>bottom</b></a> --</p>
+				<div class="d-flex">
+					<a href="#" data-toggle="vg-sidebar" data-target="#left-panel" class="btn btn-primary mr-2">open <b>left</b></a>
+					<a href="#" data-toggle="vg-sidebar" data-target="#right-panel" class="btn btn-info mr-2">open <b>right</b></a>
+					<a href="#" data-toggle="vg-sidebar" data-target="#top-panel" class="btn btn-danger mr-2">open <b>top</b></a>
+					<a href="#" data-toggle="vg-sidebar" data-target="#bottom-panel" class="btn btn-success">open <b>bottom</b></a>
+				</div>
+
 
 				<h3 class="mt-4">Install</h3>
 				<code>
-					npm i vgnav
+					npm i vgsidebar
 				</code>
-				<p class="mt-3">or download <a href="https://github.com/vegas-dev/vegas-sidebars/archive/master.zip">here</a></p>
+				<p class="mt-3">or download <a href="https://github.com/vegas-dev/vegas-sidebar/archive/master.zip">here</a></p>
 
 				<h3 class="mt-4">Dependencies</h3>
 				<p class="mt-3">jQuery >= 3</p>
 
 				<h3 class="mt-4">Usage</h3>
-				<h5>HTML markup</h5>
+				<h5 class="mt-3">HTML markup</h5>
+				<h6>Panel call</h6>
 				<pre><code class="hljs html">
-	&lt;nav class="vg-nav vg-nav-lg"&gt;
-	    &lt;ul&gt;
-	        &lt;li class="active"&gt;&lt;a href="/"&gt;Home page&lt;/a&gt;&lt;/li&gt;
-			&lt;li class="dropdown"&gt;
-	            &lt;a href="#"&gt;Left dropdown&lt;/a&gt;
-	            &lt;ul class="left"&gt;
-	                ...
-	            &lt;/ul&gt;
-	        &lt;/li&gt;
-	        &lt;li class="dropdown-mega"&gt;
-	            &lt;a href="#"&gt;Mega Menu&lt;/a&gt;
-	            &lt;div class="dropdown-mega-container"&gt;
-	                ...
-	            &lt;/div&gt;
-	        &lt;/li&gt;
-	        &lt;li class="dropdown"&gt;
-	            &lt;a href="#"&gt;Right dropdown&lt;/a&gt;
-	            &lt;ul class="right"&gt;
-			       ...
-	            &lt;/ul&gt;
-	        &lt;/li&gt;
-	    &lt;/ul&gt;
-	&lt;/nav&gt;
-					</code></pre>
+	&lt;a href="#" data-toggle="vg-sidebar" data-target="#left-panel"&gt;Open panel&lt;/a&gt;
+				</code></pre>
+
+				<h6>Panel</h6>
+				<pre><code class="hljs html">
+	&lt;div class="vg-sidebar left" id="left-panel"&gt;
+		&lt;div class="vg-sidebar-content"&gt;
+			&lt;!-- Here is your content --&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+				</code></pre>
+
+				<p>Parameter <em>[data-target="#left-panel"]</em> or <em>[href="#left-panel"]</em> indicate the path to the panel to open, this is a required parameter.</p>
+				<p>Classes <em>left</em>, <em>right</em>, <em>top</em>, <em>bottom</em> indicate the direction of opening the panel.</p>
 
 				<h5 class="mt-3">JQuery init</h5>
-				<pre><code class="hljs javascript">
-	$(document).ready(function () {
-	    $('.vg-nav').vegasMenu();
-	})
-					</code></pre>
-
-				<h5 class="mt-3">Hamburger folding. Use the following classes next to the main:</h5>
-				<pre><code class="css">
-	.vg-nav-xl // Desktop and laptop
-	.vg-nav-lg // Tablets landscape
-	.vg-nav-md // Tablets portrait
-	.vg-nav-sm // Phone landscape
-	.vg-nav-xs // Phone portrait
-					</code></pre>
-
-				<h5 class="mt-3">Opening the expanded menu on hover:</h5>
-				<pre><code class="css">
-	.vg-nav-hover
-					</code></pre>
+				<p>Automatic initialization through <em>[data-toggle="vg-sidebar"]</em></p>
 
 				<h3 class="mt-4">License</h3>
 				<p>Is published under the <a href="http://www.opensource.org/licenses/mit-license" target="_blank">MIT license</a></p>
@@ -120,27 +96,143 @@
 		</div>
 	</div>
 
-	<div class="vg-sidebar" id="left-panel">
+	<div class="vg-sidebar left" id="left-panel">
 		<div class="vg-sidebar-content">
-			sda
+			<div class="vg-sidebar-header">
+				<h4 class="vg-sidebar-title">This is left sidebar <a href="#" data-dismiss="vg-sidebar" class="vg-sidebar-close">&times;</a></h4>
+			</div>
+			<div class="vg-sidebar-body">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi fugit placeat qui quidem!
+					Alias amet consectetur corporis expedita fugit illo iure laboriosam nemo nesciunt voluptate.
+				</p>
+				<p>
+					Accusamus architecto blanditiis dolorum earum hic, iure labore molestias nobis, nostrum quas
+					ratione reprehenderit sunt voluptates. Animi at aut corporis fuga vel, vitae voluptas.
+				</p>
+				<p>
+					Accusantium aliquid aut autem corporis cum ducimus eius error est fuga illum incidunt
+					laboriosam magni minus modi molestias, necessitatibus neque nesciunt, odit officia optio
+					perspiciatis quaerat qui quo ratione reprehenderit sequi similique sint ullam voluptate
+					voluptatum.
+				</p>
+				<p>
+					Dolore enim et iste odit provident quaerat, quos, similique sit vitae voluptate
+					voluptatem, voluptatum!
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi fugit placeat qui quidem!
+					Alias amet consectetur corporis expedita fugit illo iure laboriosam nemo nesciunt voluptate.
+				</p>
+				<p>
+					Accusamus architecto blanditiis dolorum earum hic, iure labore molestias nobis, nostrum quas
+					ratione reprehenderit sunt voluptates. Animi at aut corporis fuga vel, vitae voluptas.
+				</p>
+				<p>
+					Accusantium aliquid aut autem corporis cum ducimus eius error est fuga illum incidunt
+					laboriosam magni minus modi molestias, necessitatibus neque nesciunt, odit officia optio
+					perspiciatis quaerat qui quo ratione reprehenderit sequi similique sint ullam voluptate
+					voluptatum.
+				</p>
+				<p>
+					Dolore enim et iste odit provident quaerat, quos, similique sit vitae voluptate
+					voluptatem, voluptatum!
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi fugit placeat qui quidem!
+					Alias amet consectetur corporis expedita fugit illo iure laboriosam nemo nesciunt voluptate.
+				</p>
+				<p>
+					Accusamus architecto blanditiis dolorum earum hic, iure labore molestias nobis, nostrum quas
+					ratione reprehenderit sunt voluptates. Animi at aut corporis fuga vel, vitae voluptas.
+				</p>
+				<p>
+					Accusantium aliquid aut autem corporis cum ducimus eius error est fuga illum incidunt
+					laboriosam magni minus modi molestias, necessitatibus neque nesciunt, odit officia optio
+					perspiciatis quaerat qui quo ratione reprehenderit sequi similique sint ullam voluptate
+					voluptatum.
+				</p>
+				<p>
+					Dolore enim et iste odit provident quaerat, quos, similique sit vitae voluptate
+					voluptatem, voluptatum!
+				</p>
+			</div>
 		</div>
 	</div>
 
-	<div class="vg-sidebar" id="bottom-panel" data-placement="bottom">
+	<div class="vg-sidebar right" id="right-panel">
 		<div class="vg-sidebar-content">
-			sda
+			<div class="vg-sidebar-header">
+				<h4 class="vg-sidebar-title">This is right sidebar <a href="#" data-dismiss="vg-sidebar" class="vg-sidebar-close">&times;</a></h4>
+			</div>
+			<div class="vg-sidebar-body">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi fugit placeat qui quidem!
+					Alias amet consectetur corporis expedita fugit illo iure laboriosam nemo nesciunt voluptate.
+				</p>
+				<p>
+					Accusamus architecto blanditiis dolorum earum hic, iure labore molestias nobis, nostrum quas
+					ratione reprehenderit sunt voluptates. Animi at aut corporis fuga vel, vitae voluptas.
+				</p>
+				<p>
+					Accusantium aliquid aut autem corporis cum ducimus eius error est fuga illum incidunt
+					laboriosam magni minus modi molestias, necessitatibus neque nesciunt, odit officia optio
+					perspiciatis quaerat qui quo ratione reprehenderit sequi similique sint ullam voluptate
+					voluptatum.
+				</p>
+				<p>
+					Dolore enim et iste odit provident quaerat, quos, similique sit vitae voluptate
+					voluptatem, voluptatum!
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi fugit placeat qui quidem!
+					Alias amet consectetur corporis expedita fugit illo iure laboriosam nemo nesciunt voluptate.
+				</p>
+				<p>
+					Accusamus architecto blanditiis dolorum earum hic, iure labore molestias nobis, nostrum quas
+					ratione reprehenderit sunt voluptates. Animi at aut corporis fuga vel, vitae voluptas.
+				</p>
+				<p>
+					Accusantium aliquid aut autem corporis cum ducimus eius error est fuga illum incidunt
+					laboriosam magni minus modi molestias, necessitatibus neque nesciunt, odit officia optio
+					perspiciatis quaerat qui quo ratione reprehenderit sequi similique sint ullam voluptate
+					voluptatum.
+				</p>
+				<p>
+					Dolore enim et iste odit provident quaerat, quos, similique sit vitae voluptate
+					voluptatem, voluptatum!
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi fugit placeat qui quidem!
+					Alias amet consectetur corporis expedita fugit illo iure laboriosam nemo nesciunt voluptate.
+				</p>
+				<p>
+					Accusamus architecto blanditiis dolorum earum hic, iure labore molestias nobis, nostrum quas
+					ratione reprehenderit sunt voluptates. Animi at aut corporis fuga vel, vitae voluptas.
+				</p>
+				<p>
+					Accusantium aliquid aut autem corporis cum ducimus eius error est fuga illum incidunt
+					laboriosam magni minus modi molestias, necessitatibus neque nesciunt, odit officia optio
+					perspiciatis quaerat qui quo ratione reprehenderit sequi similique sint ullam voluptate
+					voluptatum.
+				</p>
+				<p>
+					Dolore enim et iste odit provident quaerat, quos, similique sit vitae voluptate
+					voluptatem, voluptatum!
+				</p>
+			</div>
 		</div>
 	</div>
 
-	<div class="vg-sidebar" id="top-panel" data-placement="top">
+	<div class="vg-sidebar bottom" id="bottom-panel">
 		<div class="vg-sidebar-content">
-			sda
+			bottom
 		</div>
 	</div>
 
-	<div class="vg-sidebar" id="right-panel" data-placement="right">
+	<div class="vg-sidebar top" id="top-panel">
 		<div class="vg-sidebar-content">
-			sda
+			top
 		</div>
 	</div>
 

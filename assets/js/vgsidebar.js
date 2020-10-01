@@ -3,16 +3,25 @@
 	const CLASS_NAME = 'vg-sidebar';
 	const MAIN_CONTAINER = 'body';
 
+	let afterOpen = $.noop,
+		beforeOpen = $.noop;
+
+	let afterClose = $.noop,
+		beforeClose = $.noop;
+
+	let afterAjaxLoad = $.noop,
+		beforeAjaxLoad = $.noop;
+
 	let settings = {},
 		methods = {
-			open : (options, callback) => {
+			open : function (options, callback) {
 				settings = $.extend($.fn[NAME].defaults, options);
 
 				if (settings.target && $(settings.target).length) {
 					let $self = $(settings.target),
 						width_scrollbar = window.innerWidth - document.documentElement.clientWidth;
 
-					$self.addClass('open').addClass(settings.placement);
+					$self.addClass('open');
 					$(MAIN_CONTAINER).addClass(CLASS_NAME + '-open');
 
 					if (settings.content_over) {
@@ -22,16 +31,27 @@
 						})
 					}
 
-					if (settings.content_overlay) {
-						$(MAIN_CONTAINER).append('<div class="' + CLASS_NAME +'-overlay show"><div class="overlay"></div></div>');
-					}
+					$(document).on('mouseup.' + NAME, function (e) {
+						let container = $('.' + CLASS_NAME);
+						if (container.has(e.target).length === 0) {
+							$.fn[NAME]('close');
+						}
+
+						return false;
+					});
+
+					$('[data-dismiss="vg-sidebar"]').on('click.' + NAME ,function () {
+						$.fn.vgsidebar('close');
+
+						return false;
+					});
 
 					return this;
 				} else {
 					$.error('Боковая панель не найдена');
 				}
 			},
-			close : (callback) => {
+			close : function (callback) {
 				if (settings.target && $(settings.target).length) {
 					let $self = $(settings.target);
 
@@ -53,6 +73,7 @@
 							$overlay.remove();
 						}, 400);
 					}
+					return this;
 				} else {
 					$.error('Боковая панель не найдена');
 				}
@@ -73,7 +94,6 @@
 		target: '',
 		placement: 'right',
 		content_over: true,
-		content_overlay: true,
 		ajax: {
 			target: '',
 			route: '',
@@ -86,7 +106,7 @@
 
 // Автоматический вызов плагина
 $(document).ready(function () {
-	$('[data-toggle="vg-sidebar"]').click(function () {
+	$(document).on('click', '[data-toggle="vg-sidebar"]', function () {
 		let $self = $(this),
 			data = $self.data(),
 			params = {
@@ -98,12 +118,5 @@ $(document).ready(function () {
 		$.fn.vgsidebar('open', params);
 
 		return false;
-	});
-
-	$(document).mouseup(function (e) {
-		let container = $('.vg-sidebar');
-		if (container.has(e.target).length === 0) {
-			$.fn.vgsidebar('close');
-		}
 	});
 });
