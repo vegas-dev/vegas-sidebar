@@ -22,6 +22,7 @@
 						width_scrollbar = window.innerWidth - document.documentElement.clientWidth;
 
 					$self.addClass('open');
+					$self.trigger('sidebarOpen');
 					$(MAIN_CONTAINER).addClass(CLASS_NAME + '-open');
 
 					if (settings.content_over) {
@@ -56,6 +57,7 @@
 					let $self = $(settings.target);
 
 					$self.removeClass('open');
+					$self.trigger('sidebarClose');
 
 					if (settings.content_over) {
 						$(MAIN_CONTAINER).removeClass(CLASS_NAME + '-open').css({
