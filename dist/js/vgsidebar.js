@@ -1,112 +1,103 @@
 "use strict";
 
-(function ($) {
-  var NAME = 'vgsidebar';
-  var CLASS_NAME = 'vg-sidebar';
-  var MAIN_CONTAINER = 'body';
-  var afterOpen = $.noop,
-      beforeOpen = $.noop;
-  var afterClose = $.noop,
-      beforeClose = $.noop;
-  var afterAjaxLoad = $.noop,
-      beforeAjaxLoad = $.noop;
-  var settings = {},
-      methods = {
-    open: function open(options, callback) {
-      settings = $.extend($.fn[NAME].defaults, options);
+class VGSidebar {
+  constructor(target) {
+    var arg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    this.sidebar = null;
+    this.init(target, arg);
+  }
 
-      if (settings.target && $(settings.target).length) {
-        var $self = $(settings.target),
-            width_scrollbar = window.innerWidth - document.documentElement.clientWidth;
-        $self.addClass('open');
-        $self.trigger('sidebar-open');
-        $(MAIN_CONTAINER).addClass(CLASS_NAME + '-open');
-
-        if (settings.content_over) {
-          $(MAIN_CONTAINER).css({
-            'padding-right': width_scrollbar,
-            'overflow': 'hidden'
-          });
+  init(target, arg) {
+    if (target) {
+      this.sidebar = document.getElementById(target);
+      this.settings = Object.assign({
+        content_over: true,
+        hash: false,
+        ajax: {
+          target: '',
+          route: '',
+          method: 'get',
+          variables: {}
         }
+      }, arg);
+    }
+  }
 
-        $(document).on('mouseup.' + NAME, function (e) {
-          var container = $('.' + CLASS_NAME);
+  open() {
+    if (!this.sidebar) return false;
 
-          if (container.has(e.target).length === 0) {
-            $.fn[NAME]('close');
-          }
+    var _this = this;
 
-          return false;
-        });
-        $('[data-dismiss="vg-sidebar"]').on('click.' + NAME, function () {
-          $.fn.vgsidebar('close');
-          return false;
-        });
-        return this;
-      } else {
-        $.error('Sidebar not found');
+    _this.sidebar.classList.add('open');
+
+    if (_this.settings.hash) {
+      window.history.pushState({}, 'sidebar open', '#sidebar-open');
+    }
+
+    if (_this.settings.content_over) {
+      document.body.style.paddingRight = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = 'hidden';
+    }
+
+    if (_this.settings.ajax.route && _this.settings.ajax.target) {
+      var $content = document.getElementById(_this.settings.ajax.target);
+
+      if ($content) {
+        var request = new XMLHttpRequest();
+        request.open(_this.settings.ajax.method, _this.settings.ajax.route, true);
+
+        request.onload = function () {
+          var data = JSON.parse(request.responseText);
+          setData(data);
+        };
+
+        request.send(null);
       }
-    },
-    close: function close(callback) {
-      if (settings.target && $(settings.target).length) {
-        var $self = $(settings.target);
-        $self.removeClass('open');
-        $self.trigger('sidebar-close');
 
-        if (settings.content_over) {
-          $(MAIN_CONTAINER).removeClass(CLASS_NAME + '-open').css({
-            'padding-right': '',
-            'overflow': ''
-          });
-        }
+      var setData = data => {
+        $content.innerHTML = data;
+      };
+    }
 
-        if (settings.content_overlay) {
-          var $overlay = $(MAIN_CONTAINER).find('.' + CLASS_NAME + '-overlay');
-          $overlay.removeClass('show');
-          setTimeout(() => {
-            $overlay.remove();
-          }, 400);
-        }
+    document.onclick = function (e) {
+      if (e.target === _this.sidebar) {
+        _this.close();
 
-        return this;
-      } else {
-        $.error('Sidebar not found');
+        return false;
       }
-    }
-  };
-
-  $.fn[NAME] = function (method) {
-    if (methods[method]) {
-      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-    } else if (typeof method === 'object' || !method) {
-      return methods.open.apply(this, arguments);
-    } else {
-      $.error('Method "' + method + '" not found');
-    }
-  };
-
-  $.fn[NAME].defaults = {
-    target: '',
-    placement: 'right',
-    content_over: true,
-    ajax: {
-      target: '',
-      route: '',
-      method: 'get',
-      variables: {}
-    }
-  };
-})(jQuery);
-
-$(document).ready(function () {
-  $(document).on('click', '[data-toggle="vg-sidebar"]', function () {
-    var $self = $(this),
-        data = $self.data(),
-        params = {
-      target: data.target || $self.attr('href')
     };
-    params = $.extend(data, params);
-    $.fn.vgsidebar('open', params);
-    return false;
-  });
-});
+
+    document.onkeyup = function (e) {
+      if (e.key === "Escape") {
+        _this.close();
+      }
+
+      return false;
+    };
+
+    var _close = _this.sidebar.querySelectorAll('[data-dismiss="vg-sidebar"]');
+
+    for (var el of _close) {
+      el.onclick = function () {
+        _this.close();
+
+        return false;
+      };
+    }
+  }
+
+  close() {
+    if (!this.sidebar) return false;
+    this.sidebar.classList.remove('open');
+
+    if (_this.settings.hash) {
+      window.history.back();
+    }
+
+    if (this.settings.content_over) {
+      document.body.style.paddingRight = '';
+      document.body.style.overflow = '';
+    }
+  }
+
+}

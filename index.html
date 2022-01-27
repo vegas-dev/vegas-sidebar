@@ -48,10 +48,10 @@
 
 				<h3 class="mt-4">Demo</h3>
 				<div class="d-flex">
-					<a href="#" data-toggle="vg-sidebar" data-target="#left-panel" class="btn btn-primary mr-2">open <b>left</b></a>
-					<a href="#" data-toggle="vg-sidebar" data-target="#right-panel" class="btn btn-info mr-2">open <b>right</b></a>
-					<a href="#" data-toggle="vg-sidebar" data-target="#top-panel" class="btn btn-danger mr-2">open <b>top</b></a>
-					<a href="#" data-toggle="vg-sidebar" data-target="#bottom-panel" class="btn btn-success">open <b>bottom</b></a>
+					<a href="#" data-toggle="vg-sidebar" data-target="left-panel" class="btn btn-primary mr-2">open <b>left</b></a>
+					<a href="#" data-toggle="vg-sidebar" data-target="right-panel" data-ajax-route="/script.php" data-ajax-target="catalog" class="btn btn-info mr-2">open <b>right</b></a>
+					<a href="#" data-toggle="vg-sidebar" data-target="top-panel" class="btn btn-danger mr-2">open <b>top</b></a>
+					<a href="#" data-toggle="vg-sidebar" data-target="bottom-panel" class="btn btn-success">open <b>bottom</b></a>
 				</div>
 
 
@@ -166,60 +166,9 @@
 				<h4 class="vg-sidebar-title">This is right sidebar <a href="#" data-dismiss="vg-sidebar" class="vg-sidebar-close">&times;</a></h4>
 			</div>
 			<div class="vg-sidebar-body">
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi fugit placeat qui quidem!
-					Alias amet consectetur corporis expedita fugit illo iure laboriosam nemo nesciunt voluptate.
-				</p>
-				<p>
-					Accusamus architecto blanditiis dolorum earum hic, iure labore molestias nobis, nostrum quas
-					ratione reprehenderit sunt voluptates. Animi at aut corporis fuga vel, vitae voluptas.
-				</p>
-				<p>
-					Accusantium aliquid aut autem corporis cum ducimus eius error est fuga illum incidunt
-					laboriosam magni minus modi molestias, necessitatibus neque nesciunt, odit officia optio
-					perspiciatis quaerat qui quo ratione reprehenderit sequi similique sint ullam voluptate
-					voluptatum.
-				</p>
-				<p>
-					Dolore enim et iste odit provident quaerat, quos, similique sit vitae voluptate
-					voluptatem, voluptatum!
-				</p>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi fugit placeat qui quidem!
-					Alias amet consectetur corporis expedita fugit illo iure laboriosam nemo nesciunt voluptate.
-				</p>
-				<p>
-					Accusamus architecto blanditiis dolorum earum hic, iure labore molestias nobis, nostrum quas
-					ratione reprehenderit sunt voluptates. Animi at aut corporis fuga vel, vitae voluptas.
-				</p>
-				<p>
-					Accusantium aliquid aut autem corporis cum ducimus eius error est fuga illum incidunt
-					laboriosam magni minus modi molestias, necessitatibus neque nesciunt, odit officia optio
-					perspiciatis quaerat qui quo ratione reprehenderit sequi similique sint ullam voluptate
-					voluptatum.
-				</p>
-				<p>
-					Dolore enim et iste odit provident quaerat, quos, similique sit vitae voluptate
-					voluptatem, voluptatum!
-				</p>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi fugit placeat qui quidem!
-					Alias amet consectetur corporis expedita fugit illo iure laboriosam nemo nesciunt voluptate.
-				</p>
-				<p>
-					Accusamus architecto blanditiis dolorum earum hic, iure labore molestias nobis, nostrum quas
-					ratione reprehenderit sunt voluptates. Animi at aut corporis fuga vel, vitae voluptas.
-				</p>
-				<p>
-					Accusantium aliquid aut autem corporis cum ducimus eius error est fuga illum incidunt
-					laboriosam magni minus modi molestias, necessitatibus neque nesciunt, odit officia optio
-					perspiciatis quaerat qui quo ratione reprehenderit sequi similique sint ullam voluptate
-					voluptatum.
-				</p>
-				<p>
-					Dolore enim et iste odit provident quaerat, quos, similique sit vitae voluptate
-					voluptatem, voluptatum!
-				</p>
+				<div id="catalog">
+
+				</div>
 			</div>
 		</div>
 	</div>
@@ -241,5 +190,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/javascript.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/css.min.js"></script>
 	<script src="/dist/js/vgsidebar.js"></script>
+	<script src="/demo/js/demo.js"></script>
 </body>
 </html>
