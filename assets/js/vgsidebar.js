@@ -12,9 +12,7 @@ class VGSidebar {
 				hash: false,
 				ajax: {
 					target: '',
-					route: '',
-					method: 'get',
-					variables: {}
+					route: ''
 				}
 			}, arg);
 		}
@@ -27,7 +25,15 @@ class VGSidebar {
 		_this.sidebar.classList.add('open');
 
 		if (_this.settings.hash) {
-			window.history.pushState({}, 'sidebar open', '#sidebar-open');
+			let hash = this.sidebar.id;
+
+			if (hash) {
+				window.history.pushState(null, 'sidebar open', '#sidebar-open-' + hash);
+			}
+
+			window.addEventListener("popstate",function(e){
+				_this.close();
+			},false);
 		}
 
 		if (_this.settings.content_over) {
@@ -40,13 +46,13 @@ class VGSidebar {
 
 			if ($content) {
 				let request = new XMLHttpRequest();
-				request.open(_this.settings.ajax.method, _this.settings.ajax.route, true);
+				request.open('get', _this.settings.ajax.route, true);
 				request.onload = function () {
 					let data = JSON.parse(request.responseText);
 
 					setData(data);
 				};
-				request.send(null);
+				request.send();
 			}
 
 			const setData = (data) => {
@@ -83,8 +89,9 @@ class VGSidebar {
 		if (!this.sidebar) return false;
 		this.sidebar.classList.remove('open');
 
-		if (_this.settings.hash) {
-			window.history.back();
+		if (location.hash) {
+			history.pushState("", document.title, window.location.pathname
+				+ window.location.search);
 		}
 
 		if (this.settings.content_over) {
@@ -92,4 +99,40 @@ class VGSidebar {
 			document.body.style.overflow = '';
 		}
 	}
+}
+
+if(window.location.hash) {
+	let target = window.location.hash.replace('#sidebar-open-', '');
+
+	if (document.getElementById(target)) {
+		let sidebar = new VGSidebar(target);
+
+		if (sidebar.settings.hash) {
+			sidebar.open();
+		}
+	}
+}
+
+let $vg_sidebar_toggle = document.querySelectorAll('[data-toggle="vg-sidebar"]');
+for (let $btn of $vg_sidebar_toggle) {
+	$btn.onclick = function (e) {
+		let button = e.target,
+			target = button.dataset.target || button.href;
+
+		if (target) {
+			let params = {
+				content_over: button.dataset.over || true,
+				hash: button.dataset.hash || false,
+				ajax: {
+					target: button.dataset.ajaxTarget || '',
+					route: button.dataset.ajaxRoute || ''
+				}
+			};
+
+			let sidebar = new VGSidebar(target, params);
+			sidebar.open();
+		}
+
+		return false;
+	};
 }

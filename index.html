@@ -13,6 +13,12 @@
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css">
 	<link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 	<link href="demo/css/demo.css" rel="stylesheet" type="text/css">
+
+	<script>
+		let App = {
+			csrf: 'token'
+		}
+	</script>
 </head>
 <body>
 	<div class="wrapper">
@@ -49,8 +55,8 @@
 				<h3 class="mt-4">Demo</h3>
 				<div class="d-flex">
 					<a href="#" data-toggle="vg-sidebar" data-target="left-panel" class="btn btn-primary mr-2">open <b>left</b></a>
-					<a href="#" data-toggle="vg-sidebar" data-target="right-panel" data-ajax-route="/script.php" data-ajax-target="catalog" class="btn btn-info mr-2">open <b>right</b></a>
-					<a href="#" data-toggle="vg-sidebar" data-target="top-panel" class="btn btn-danger mr-2">open <b>top</b></a>
+					<a href="#" data-toggle="vg-sidebar" data-target="right-panel" data-ajax-route="/script.php?var=param1" data-ajax-target="catalog" class="btn btn-info mr-2">open <b>right</b></a>
+					<a href="#" data-toggle="vg-sidebar" data-target="top-panel" data-hash="true" class="btn btn-danger mr-2">open <b>top</b></a>
 					<a href="#" data-toggle="vg-sidebar" data-target="bottom-panel" class="btn btn-success">open <b>bottom</b></a>
 				</div>
 
@@ -61,30 +67,27 @@
 				</code>
 				<p class="mt-3">or download <a href="https://github.com/vegas-dev/vegas-sidebar/archive/master.zip">here</a></p>
 
-				<h3 class="mt-4">Dependencies</h3>
-				<p class="mt-3">jQuery >= 3</p>
-
 				<h3 class="mt-4">Usage</h3>
 				<h5 class="mt-3">HTML markup</h5>
 				<h6>Panel call</h6>
 				<pre><code class="hljs html">
-	&lt;a href="#" data-toggle="vg-sidebar" data-target="#left-panel"&gt;Open panel&lt;/a&gt;
+&lt;a href="#" data-toggle="vg-sidebar" data-target="#left-panel"&gt;Open panel&lt;/a&gt;
 				</code></pre>
 
 				<h6>Panel</h6>
 				<pre><code class="hljs html">
-	&lt;div class="vg-sidebar left" id="left-panel"&gt;
-		&lt;div class="vg-sidebar-content"&gt;
-			&lt;!-- Here is your content --&gt;
-		&lt;/div&gt;
+&lt;div class="vg-sidebar left" id="left-panel"&gt;
+	&lt;div class="vg-sidebar-content"&gt;
+		&lt;!-- Here is your content --&gt;
 	&lt;/div&gt;
+&lt;/div&gt;
 				</code></pre>
 
-				<p>Parameter <em>[data-target="#left-panel"]</em> or <em>[href="#left-panel"]</em> indicate the path to the panel to open, this is a required parameter.</p>
-				<p>Classes <em>left</em>, <em>right</em>, <em>top</em>, <em>bottom</em> indicate the direction of opening the panel.</p>
+				<p>Parameter <code>[data-target="#left-panel"]</code> or <code>[href="#left-panel"]</code> indicate the path to the panel to open, this is a required parameter.</p>
+				<p>Classes <code>left</code>, <code>right</code>, <code>top</code>, <code>bottom</code> indicate the direction of opening the panel.</p>
 
-				<h5 class="mt-3">JQuery init</h5>
-				<p>Automatic initialization through <em>[data-toggle="vg-sidebar"]</em></p>
+				<h5 class="mt-3">Init</h5>
+				<p>Automatic initialization through <code>[data-toggle="vg-sidebar"]</code></p>
 
 				<h3 class="mt-4">License</h3>
 				<p>Is published under the <a href="http://www.opensource.org/licenses/mit-license" target="_blank">MIT license</a></p>
@@ -190,6 +193,5 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/javascript.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/css.min.js"></script>
 	<script src="/dist/js/vgsidebar.js"></script>
-	<script src="/demo/js/demo.js"></script>
 </body>
 </html>
