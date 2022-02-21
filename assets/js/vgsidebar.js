@@ -117,7 +117,12 @@ let $vg_sidebar_toggle = document.querySelectorAll('[data-toggle="vg-sidebar"]')
 for (let $btn of $vg_sidebar_toggle) {
 	$btn.onclick = function (e) {
 		let button = e.target,
-			target = button.dataset.target || button.href;
+			target = button.dataset.target || button.href || null;
+
+		if (!target) {
+			button = button.closest('[data-toggle="vg-sidebar"]');
+			target = button.dataset.target || button.href || null;
+		}
 
 		if (target) {
 			let params = {
