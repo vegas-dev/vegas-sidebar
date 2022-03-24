@@ -9,7 +9,12 @@ class VGSidebar {
 
   init(target, arg) {
     if (target) {
-      this.sidebar = document.getElementById(target);
+      if (target.indexOf('#') !== -1) {
+        this.sidebar = document.getElementById(target.slice(1));
+      } else {
+        this.sidebar = document.getElementById(target);
+      }
+
       this.settings = Object.assign({
         content_over: true,
         hash: false,
