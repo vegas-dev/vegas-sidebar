@@ -140,8 +140,10 @@ for (let $btn of $vg_sidebar_toggle) {
 
 			if (document.body.classList.contains('sidebar-open')) {
 				sidebar.close();
+				button.classList.remove('active'); // TODO remove
 			} else {
 				sidebar.open();
+				button.classList.add('active');  // TODO remove
 			}
 		}
 

@@ -149,8 +149,12 @@ for (var $btn of $vg_sidebar_toggle) {
 
       if (document.body.classList.contains('sidebar-open')) {
         _sidebar.close();
+
+        button.classList.remove('active'); // TODO remove
       } else {
         _sidebar.open();
+
+        button.classList.add('active'); // TODO remove
       }
     }
 
