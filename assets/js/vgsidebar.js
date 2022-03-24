@@ -6,12 +6,7 @@ class VGSidebar {
 
 	init(target, arg) {
 		if (target) {
-			if(target.indexOf('#') !== -1) {
-				this.sidebar = document.getElementById(target.slice(1));
-			} else {
-				this.sidebar = document.getElementById(target);
-			}
-
+			this.sidebar = document.getElementById(target);
 			this.settings = Object.assign({
 				content_over: true,
 				hash: false,
@@ -28,6 +23,7 @@ class VGSidebar {
 		let _this = this;
 
 		_this.sidebar.classList.add('open');
+		document.body.classList.add('sidebar-open');
 
 		if (_this.settings.hash) {
 			let hash = this.sidebar.id;
@@ -93,6 +89,7 @@ class VGSidebar {
 	close() {
 		if (!this.sidebar) return false;
 		this.sidebar.classList.remove('open');
+		document.body.classList.remove('sidebar-open');
 
 		if (location.hash) {
 			history.pushState("", document.title, window.location.pathname
@@ -122,7 +119,7 @@ let $vg_sidebar_toggle = document.querySelectorAll('[data-toggle="vg-sidebar"]')
 for (let $btn of $vg_sidebar_toggle) {
 	$btn.onclick = function (e) {
 		let button = e.target,
-			target = button.dataset.target || button.href || null;
+			target = button.dataset.target;
 
 		if (!target) {
 			button = button.closest('[data-toggle="vg-sidebar"]');
@@ -140,7 +137,12 @@ for (let $btn of $vg_sidebar_toggle) {
 			};
 
 			let sidebar = new VGSidebar(target, params);
-			sidebar.open();
+
+			if (document.body.classList.contains('sidebar-open')) {
+				sidebar.close();
+			} else {
+				sidebar.open();
+			}
 		}
 
 		return false;
