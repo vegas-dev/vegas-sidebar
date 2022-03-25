@@ -1,37 +1,66 @@
 "use strict";
 
 class VGSidebar {
-  constructor(target) {
+  constructor($btn) {
     var arg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     this.sidebar = null;
-    this.init(target, arg);
+    this.button = null;
+    this.target = null;
+    this.settings = {
+      content_over: true,
+      hash: false,
+      ajax: {
+        target: '',
+        route: ''
+      }
+    };
+    this.init($btn, arg);
   }
 
-  init(target, arg) {
-    if (target) {
-      this.sidebar = document.getElementById(target);
-      this.settings = Object.assign({
-        content_over: true,
-        hash: false,
-        ajax: {
-          target: '',
-          route: ''
-        }
-      }, arg);
+  init($btn, arg, callback) {
+    if (typeof $btn === 'string') {
+      this.target = $btn;
+    } else {
+      this.target = $btn.dataset.target || $btn.href;
+    }
+
+    if (this.target.indexOf('#') !== -1) {
+      this.target = this.target.split('#')[1];
+    }
+
+    if (this.target) {
+      var _this = this;
+
+      this.sidebar = document.getElementById(this.target);
+      this.button = $btn;
+      this.settings = Object.assign(this.settings, arg);
+
+      if (document.body.classList.contains('sidebar-open') && !this.sidebar.classList.contains('open')) {
+        this.close(callback, true);
+      }
+
+      if (callback) {
+        if (typeof callback === 'function') callback(_this);
+      }
     }
   }
 
-  open() {
+  open(callback) {
     if (!this.sidebar) return false;
 
     var _this = this;
 
+    if (callback && 'beforeOpen' in callback) {
+      if (typeof callback.beforeOpen === 'function') callback.beforeOpen(_this);
+    }
+
     _this.sidebar.classList.add('open');
 
+    if (_this.button && typeof _this.button !== 'string') _this.button.classList.add('active');
     document.body.classList.add('sidebar-open');
 
     if (_this.settings.hash) {
-      var hash = this.sidebar.id;
+      var hash = _this.sidebar.id;
 
       if (hash) {
         window.history.pushState(null, 'sidebar open', '#sidebar-open-' + hash);
@@ -92,20 +121,53 @@ class VGSidebar {
         return false;
       };
     }
+
+    if (callback && 'afterOpen' in callback) {
+      if (typeof callback.afterOpen === 'function') callback.afterOpen(_this);
+    }
   }
 
-  close() {
+  close(callback) {
+    var closeAll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     if (!this.sidebar) return false;
-    this.sidebar.classList.remove('open');
-    document.body.classList.remove('sidebar-open');
 
-    if (location.hash) {
-      history.pushState("", document.title, window.location.pathname + window.location.search);
+    var _this = this;
+
+    if (callback && 'beforeClose' in callback) {
+      if (typeof callback.beforeClose === 'function') callback.beforeClose(_this);
     }
 
-    if (this.settings.content_over) {
-      document.body.style.paddingRight = '';
-      document.body.style.overflow = '';
+    if (closeAll) {
+      var $sidebars = document.querySelectorAll('.vg-sidebar.open');
+
+      if ($sidebars && $sidebars.length) {
+        for (var $sidebar of $sidebars) {
+          $sidebar.classList.remove('open');
+          document.body.classList.remove('sidebar-open');
+
+          if (location.hash) {
+            history.pushState("", document.title, window.location.pathname + window.location.search);
+          }
+        }
+      }
+    } else {
+      _this.sidebar.classList.remove('open');
+
+      if (_this.button && typeof _this.button !== 'string') _this.button.classList.remove('active');
+      document.body.classList.remove('sidebar-open');
+
+      if (location.hash) {
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+      }
+
+      if (_this.settings.content_over) {
+        document.body.style.paddingRight = '';
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (callback && 'afterClose' in callback) {
+      if (typeof callback.afterClose === 'function') callback.afterClose(_this);
     }
   }
 
@@ -116,10 +178,7 @@ if (window.location.hash) {
 
   if (document.getElementById(target)) {
     var sidebar = new VGSidebar(target);
-
-    if (sidebar.settings.hash) {
-      sidebar.open();
-    }
+    sidebar.open();
   }
 }
 
@@ -127,35 +186,21 @@ var $vg_sidebar_toggle = document.querySelectorAll('[data-toggle="vg-sidebar"]')
 
 for (var $btn of $vg_sidebar_toggle) {
   $btn.onclick = function (e) {
-    var button = e.target,
-        target = button.dataset.target;
-
-    if (!target) {
-      button = button.closest('[data-toggle="vg-sidebar"]');
-      target = button.dataset.target || button.href || null;
-    }
-
-    if (target) {
-      var params = {
-        content_over: button.dataset.over || true,
-        hash: button.dataset.hash || false,
-        ajax: {
-          target: button.dataset.ajaxTarget || '',
-          route: button.dataset.ajaxRoute || ''
-        }
-      };
-
-      var _sidebar = new VGSidebar(target, params);
-
-      if (document.body.classList.contains('sidebar-open')) {
-        _sidebar.close();
-
-        button.classList.remove('active'); // TODO remove
-      } else {
-        _sidebar.open();
-
-        button.classList.add('active'); // TODO remove
+    var button = this;
+    var params = {
+      content_over: button.dataset.over || true,
+      hash: button.dataset.hash || false,
+      ajax: {
+        target: button.dataset.ajaxTarget || '',
+        route: button.dataset.ajaxRoute || ''
       }
+    };
+    var sidebar = new VGSidebar(button, params);
+
+    if (document.body.classList.contains('sidebar-open')) {
+      sidebar.close();
+    } else {
+      sidebar.open();
     }
 
     return false;

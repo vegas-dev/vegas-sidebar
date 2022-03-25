@@ -8,17 +8,12 @@
 	<!-- Main css -->
 	<link href="dist/css/vgsidebar.css" rel="stylesheet" type="text/css">
 	<link href="dist/css/vgsidebar-theme.css" rel="stylesheet" type="text/css">
+
 	<!-- tmpl css -->
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css">
 	<link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-	<link href="demo/css/demo.css" rel="stylesheet" type="text/css">
-
-	<script>
-		let App = {
-			csrf: 'token'
-		}
-	</script>
+	<link rel="stylesheet" href="demo/css/demo.css" type="text/css">
 </head>
 <body>
 	<div class="wrapper">
@@ -35,8 +30,8 @@
 					<div class="col-md-9 col-4 d-flex align-items-center">
 						<h1>
 							Vegas Sidebar
-							<a href="https://www.npmjs.com/package/vgsidebar" target="_blank"><img src="https://img.shields.io/npm/v/vgsidebar.svg?style=flat-square&maxAge=600"></a>
-							<a href="http://www.opensource.org/licenses/mit-license" target="_blank"><img src="https://img.shields.io/npm/l/vgsidebar.svg?style=flat-square"></a>
+							<a href="https://www.npmjs.com/package/vgsidebar" target="_blank"><img src="https://img.shields.io/npm/v/vgsidebar.svg?style=flat-square&maxAge=600" alt="NPM"></a>
+							<a href="http://www.opensource.org/licenses/mit-license" target="_blank"><img src="https://img.shields.io/npm/l/vgsidebar.svg?style=flat-square" alt="License"></a>
 						</h1>
 					</div>
 				</div>
@@ -54,7 +49,7 @@
 
 				<h3 class="mt-4">Demo</h3>
 				<div class="d-flex">
-					<a href="#" data-toggle="vg-sidebar" data-target="left-panel" class="btn btn-primary mr-2">open <b>left</b></a>
+					<a href="#left-panel" data-toggle="vg-sidebar" class="btn btn-primary mr-2">open <b>left</b></a>
 					<a href="#" data-toggle="vg-sidebar" data-target="right-panel" data-ajax-route="/script.php?var=param1" data-ajax-target="catalog" class="btn btn-info mr-2">open <b>right</b></a>
 					<a href="#" data-toggle="vg-sidebar" data-target="top-panel" data-hash="true" class="btn btn-danger mr-2">open <b>top</b></a>
 					<a href="#" data-toggle="vg-sidebar" data-target="bottom-panel" class="btn btn-success">open <b>bottom</b></a>
@@ -169,9 +164,42 @@
 				<h4 class="vg-sidebar-title">This is right sidebar <a href="#" data-dismiss="vg-sidebar" class="vg-sidebar-close">&times;</a></h4>
 			</div>
 			<div class="vg-sidebar-body">
-				<div id="catalog">
-
-				</div>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi fugit placeat qui quidem!
+					Alias amet consectetur corporis expedita fugit illo iure laboriosam nemo nesciunt voluptate.
+				</p>
+				<p>
+					Accusamus architecto blanditiis dolorum earum hic, iure labore molestias nobis, nostrum quas
+					ratione reprehenderit sunt voluptates. Animi at aut corporis fuga vel, vitae voluptas.
+				</p>
+				<p>
+					Accusantium aliquid aut autem corporis cum ducimus eius error est fuga illum incidunt
+					laboriosam magni minus modi molestias, necessitatibus neque nesciunt, odit officia optio
+					perspiciatis quaerat qui quo ratione reprehenderit sequi similique sint ullam voluptate
+					voluptatum.
+				</p>
+				<p>
+					Dolore enim et iste odit provident quaerat, quos, similique sit vitae voluptate
+					voluptatem, voluptatum!
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi fugit placeat qui quidem!
+					Alias amet consectetur corporis expedita fugit illo iure laboriosam nemo nesciunt voluptate.
+				</p>
+				<p>
+					Accusamus architecto blanditiis dolorum earum hic, iure labore molestias nobis, nostrum quas
+					ratione reprehenderit sunt voluptates. Animi at aut corporis fuga vel, vitae voluptas.
+				</p>
+				<p>
+					Accusantium aliquid aut autem corporis cum ducimus eius error est fuga illum incidunt
+					laboriosam magni minus modi molestias, necessitatibus neque nesciunt, odit officia optio
+					perspiciatis quaerat qui quo ratione reprehenderit sequi similique sint ullam voluptate
+					voluptatum.
+				</p>
+				<p>
+					Dolore enim et iste odit provident quaerat, quos, similique sit vitae voluptate
+					voluptatem, voluptatum!
+				</p>
 			</div>
 		</div>
 	</div>
