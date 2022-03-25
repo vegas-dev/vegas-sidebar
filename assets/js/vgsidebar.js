@@ -33,11 +33,11 @@ class VGSidebar {
 
 		if (this.target) {
 			let _this = this;
-			this.sidebar = document.getElementById(this.target);
+			this.sidebar = document.getElementById(_this.target);
 			this.button = $btn;
-			this.settings = Object.assign(this.settings, arg);
-
-			if (document.body.classList.contains('.' + this.classes.body) && !this.sidebar.classList.contains('open')) {
+			this.settings = Object.assign(_this.settings, arg);
+			console.log(document.body.classList.contains(_this.classes.body))
+			if (document.body.classList.contains(_this.classes.body) && !_this.sidebar.classList.contains('open')) {
 				this.close(callback, true);
 			}
 
