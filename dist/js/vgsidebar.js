@@ -14,6 +14,11 @@ class VGSidebar {
         route: ''
       }
     };
+    this.classes = {
+      body: 'vg-sidebar-open',
+      open: 'open',
+      btn: 'vg-sidebar-active'
+    };
     this.init($btn, arg);
   }
 
@@ -35,7 +40,7 @@ class VGSidebar {
       this.button = $btn;
       this.settings = Object.assign(this.settings, arg);
 
-      if (document.body.classList.contains('sidebar-open') && !this.sidebar.classList.contains('open')) {
+      if (document.body.classList.contains('.' + this.classes.body) && !this.sidebar.classList.contains('open')) {
         this.close(callback, true);
       }
 
@@ -56,8 +61,8 @@ class VGSidebar {
 
     _this.sidebar.classList.add('open');
 
-    if (_this.button && typeof _this.button !== 'string') _this.button.classList.add('active');
-    document.body.classList.add('sidebar-open');
+    if (_this.button && typeof _this.button !== 'string') _this.button.classList.add(_this.classes.btn);
+    document.body.classList.add(_this.classes.body);
 
     if (_this.settings.hash) {
       var hash = _this.sidebar.id;
@@ -141,20 +146,27 @@ class VGSidebar {
       var $sidebars = document.querySelectorAll('.vg-sidebar.open');
 
       if ($sidebars && $sidebars.length) {
+        document.body.classList.remove(_this.classes.body);
+
         for (var $sidebar of $sidebars) {
           $sidebar.classList.remove('open');
-          document.body.classList.remove('sidebar-open');
+        }
 
-          if (location.hash) {
-            history.pushState("", document.title, window.location.pathname + window.location.search);
-          }
+        var $buttons = document.querySelectorAll('.' + _this.classes.btn);
+
+        for (var $btn of $buttons) {
+          $btn.classList.remove(_this.classes.btn);
+        }
+
+        if (location.hash) {
+          history.pushState("", document.title, window.location.pathname + window.location.search);
         }
       }
     } else {
       _this.sidebar.classList.remove('open');
 
-      if (_this.button && typeof _this.button !== 'string') _this.button.classList.remove('active');
-      document.body.classList.remove('sidebar-open');
+      if (_this.button && typeof _this.button !== 'string') _this.button.classList.remove(_this.classes.btn);
+      document.body.classList.remove(_this.classes.body);
 
       if (location.hash) {
         history.pushState("", document.title, window.location.pathname + window.location.search);
@@ -197,7 +209,7 @@ for (var $btn of $vg_sidebar_toggle) {
     };
     var sidebar = new VGSidebar(button, params);
 
-    if (document.body.classList.contains('sidebar-open')) {
+    if (document.body.classList.contains('vg-sidebar-open')) {
       sidebar.close();
     } else {
       sidebar.open();
