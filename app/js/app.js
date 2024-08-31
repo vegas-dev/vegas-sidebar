@@ -54,8 +54,6 @@ let setParams = function (element, params, arg) {
  * @type {{keyboard: boolean, overflow: boolean, backdrop: boolean, width: number, placement: string}}
  */
 const defaultSettings = {
-	width: 320,
-	placement: 'left',
 	backdrop: true,
 	overflow: true,
 	keyboard: true
@@ -84,10 +82,6 @@ class VGSidebar {
 			if (this.element) {
 				this.settings = setParams(this.element, defaultSettings, arg);
 
-				this.classes = {
-
-				}
-
 				this.init();
 			}
 		}
@@ -95,6 +89,8 @@ class VGSidebar {
 
 	init() {
 		const _this = this;
+
+		console.log('toggle', _this._isShown)
 
 		_this.toggle();
 	}
@@ -104,11 +100,21 @@ class VGSidebar {
 	}
 
 	show() {
+		const _this = this;
 
+		if (_this._isShown) return;
+		_this._isShown = true;
+
+		console.log('show')
 	}
 
 	hide() {
+		const _this = this;
 
+		if (!this._isShown) return;
+		_this._isShown = false;
+
+		console.log('hide')
 	}
 }
 

@@ -1,1 +1,11 @@
 $prefix: vg-;
+
+$sidebar-map: (
+	horizontal-width:          400px,
+	vertical-height:           30vh,
+	bg-color:                  #ffffff,
+	color:                     #000000,
+	box-shadow:                0 8px 14px 5px rgba(0, 0, 0, 0.2),
+	backdrop-bg:               rgba(0, 0, 0, 1),
+	backdrop-opacity:          .8
+)

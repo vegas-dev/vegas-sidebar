@@ -32,7 +32,8 @@
 	</header>
 	<main class="container pt-5">
 		<ul>
-			<li><a href="#sidebar-left" data-vg-toggle="sidebar" data-placement="left" data-width="500">Открыть панель слева</a></li>
+			<li><a href="#sidebar-left" data-vg-toggle="sidebar">Открыть панель слева</a></li>
+			<li><button class="btn btn-primary" data-vg-target="#sidebar-right" data-vg-toggle="sidebar">Открыть панель справа</button></li>
 		</ul>
 	</main>
 	<footer>
@@ -44,9 +45,17 @@
 <script src="/assets/build/vgsidebar.js"></script>
 
 
-<div class="vg-sidebar" id="sidebar-left">
+<div class="vg-sidebar left" id="sidebar-left">
 	<div class="vg-sidebar-content">
 		<div class="vg-sidebar-header">Панель слева</div>
+		<div class="vg-sidebar-body"></div>
+		<div class="vg-sidebar-footer"></div>
+	</div>
+</div>
+
+<div class="vg-sidebar right" id="sidebar-right">
+	<div class="vg-sidebar-content">
+		<div class="vg-sidebar-header">Панель справа</div>
 		<div class="vg-sidebar-body"></div>
 		<div class="vg-sidebar-footer"></div>
 	</div>

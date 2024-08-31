@@ -9,5 +9,34 @@
 * Лицензия: смотри LICENSE.md
 *--------------------------------------------------------------------------
 **/
+:root {
+  --vg-sidebar-horizontal-width: 400px ;
+  --vg-sidebar-vertical-height: 30vh ;
+  --vg-sidebar-bg-color: #ffffff ;
+  --vg-sidebar-color: #000000 ;
+  --vg-sidebar-box-shadow: 0 8px 14px 5px rgba(0, 0, 0, 0.2) ;
+  --vg-sidebar-backdrop-bg: rgb(0, 0, 0) ;
+  --vg-sidebar-backdrop-opacity: 0.8 ;
+}
 
-/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidmdzaWRlYmFyLmNzcyIsIm1hcHBpbmdzIjoiOzs7QUFBQTtBQUFBOzs7Ozs7QUFBQSIsInNvdXJjZXMiOlsid2VicGFjazovL3ZnLy4vYXBwL3Njc3MvYXBwLnNjc3MiXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=*/
+.vg-sidebar {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--vg-sidebar-backdrop-bg);
+  transition: all 0.5s ease-in-out;
+}
+.vg-sidebar:not(.show) {
+  display: block;
+}
+.vg-sidebar .show.fade {
+  opacity: 1;
+  visibility: visible;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidmdzaWRlYmFyLmNzcyIsIm1hcHBpbmdzIjoiOzs7QUFBQTtBQUFBOzs7Ozs7QUFBQTtBQVdBO0FDVEE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QURjQTs7QUFEQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBSUE7QUFGQTtBQUNBO0FBSUE7QUFEQTtBQUNBO0FBQ0E7QUFHQSIsInNvdXJjZXMiOlsid2VicGFjazovL3ZnLy4vYXBwL3Njc3MvYXBwLnNjc3MiLCJ3ZWJwYWNrOi8vdmcvLi9hcHAvc2Nzcy9vcHRpb24vX21peGluLnNjc3MiXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=*/
