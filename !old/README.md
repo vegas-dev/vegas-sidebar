@@ -1,4 +1,4 @@
-# Vegas Sidebars
+# vegasSidebars
 App for creating custom sidebars, is written in JQuery, html5 and ССS3 using the compiler SCSS
 
 [![npm](https://img.shields.io/npm/v/vgsidebar.svg?style=flat-square&maxAge=600)](https://www.npmjs.com/package/vgsidebar) [![npm](https://img.shields.io/npm/l/vgsidebar.svg?style=flat-square)]()
@@ -17,5 +17,5 @@ or download [here](https://github.com/vegas-dev/vegas-sidebar/archive/master.zip
 
 [VEGAS STUDIO](https://vegas-dev.com)  Russia
 
-## License
+## License 
 Is published under the [MIT license](http://www.opensource.org/licenses/mit-license)

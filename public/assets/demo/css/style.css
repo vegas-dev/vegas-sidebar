@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap');
+
+body {
+	/** **/
+	.header {
+		position: relative;
+		height: 100px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	footer {
+		margin-top: 300px;
+		padding: 2rem 0;
+	}
+
+	/* */
+	a {
+		color: var(--vg-link-color);
+		text-decoration: var(--vg-link-color-hover);
+		transition: var(--vg-transition);
+	}
+
+	a:hover {
+		color: var(--vg-link-color-hover);
+		text-decoration: var(--vg-link-decoration-hover);
+	}
+}
