@@ -82,4 +82,26 @@
 			opacity: var(--vg-sidebar-backdrop-opacity);
 		}
 	}
+
+	&-close {
+		position: absolute;
+		right: 1rem;
+		top: 1rem;
+		border: none;
+		background: transparent;
+
+		svg {
+			width: 24px;
+			height: 24px;
+		}
+	}
+
+	&-header {
+		height: var(--vg-sidebar-header-height);
+		z-index: 10;
+		position: relative;
+		display: flex;
+		align-items: center;
+		padding: 1rem;
+	}
 }
