@@ -1,6 +1,5 @@
 import {
-	checkMobileOrTablet,
-	findContainer, findContainerAll,
+	eventHandler,
 	getDataAttributes,
 	isEmptyObj,
 	isJsonString,
@@ -18,32 +17,46 @@ const EVENT_KEY_SHOWN  = 'vg.sidebar.shown';
  * Параметры дата атрибутов в приоритете
  */
 let setParams = function (element, params, arg) {
-	let mParams = mergeDeepObject(params, arg),
-		data = getDataAttributes(element, true);
+	let mParams = mergeDeepObject(params, arg, getDataAttributes(element, true));
 
-	if (isObject(data) && !isEmptyObj(data)) {
-		for (const datum in data) {
-			let value = data[datum];
+	if (isObject(mParams) && !isEmptyObj(mParams)) {
+		for (const datum in mParams) {
+			let value = mParams[datum];
 
 			if (value === 'null') value = null;
 			if (value === 'true') value = true;
 			if (value === 'false') value = false;
 
 			if (datum !== 'params') {
-				switch (datum) {
-					default:
-						mParams[datum] = value;
-					break;
+				if (!(datum in params)) {
+					let p = datum.split('-');
+
+					if (p[1] in params[p[0]]) {
+						params[p[0]][p[1]] = value;
+					}
+
+					delete mParams[datum];
+				} else {
+					mParams[datum] = value;
 				}
 			} else {
-				if (isJsonString(value)) {
-					value = JSON.parse(value);
-					mParams = mergeDeepObject(mParams, value)
-				} else if (isObject(value) && !isEmptyObj(value)) {
-					mParams = mergeDeepObject(mParams, value)
-				}
+				setDataParams(value);
+				delete mParams[datum];
 			}
 		}
+	}
+
+	function setDataParams(value) {
+		if (isJsonString(value)) {
+			value = JSON.parse(value);
+			setDataParams(value);
+		} else if (isObject(value) && !isEmptyObj(value)) {
+			mParams = mergeDeepObject(mParams, value)
+		}
+	}
+
+	function setAttrParams(datum, params, value) {
+
 	}
 
 	return mParams;
@@ -56,7 +69,11 @@ let setParams = function (element, params, arg) {
 const defaultSettings = {
 	backdrop: true,
 	overflow: true,
-	keyboard: true
+	keyboard: true,
+	ajax: {
+		route: '',
+		target: ''
+	}
 }
 
 let _isShown = false;
@@ -88,7 +105,6 @@ class VGSidebar {
 
 			if (this.element) {
 				this.settings = setParams(this.element, defaultSettings, arg);
-
 				this.init();
 			}
 		}
@@ -117,9 +133,17 @@ class VGSidebar {
 		if (_isShown) return;
 		_isShown = true;
 
+		eventHandler.on(_this.element, EVENT_KEY_SHOW);
+
 		_this._backdrop();
 		_this._overflow();
 		_this.element.classList.add('show');
+
+		setTimeout(() => {
+			if (_this.settings.ajax.route && _this.settings.ajax.target) _this._route();
+
+			eventHandler.on(_this.element, EVENT_KEY_SHOWN);
+		}, 50)
 	}
 
 	hide() {
@@ -128,9 +152,15 @@ class VGSidebar {
 		if (!_isShown) return;
 		_isShown = false;
 
+		eventHandler.on(_this.element, EVENT_KEY_HIDE);
+
 		_this._backdrop();
 		_this._overflow();
 		_this.element.classList.remove('show');
+
+		setTimeout(() => {
+			eventHandler.on(_this.element, EVENT_KEY_HIDDEN);
+		}, 50)
 	}
 
 	static getInstance(target, arg = {}) {
@@ -179,8 +209,9 @@ class VGSidebar {
 	}
 
 	_addEventListener() {
+		const _this = this;
+
 		if (_isShown) {
-			const _this = this;
 			let backdrop = document.querySelector('.vg-sidebar-backdrop');
 
 			if (backdrop) {
@@ -190,30 +221,48 @@ class VGSidebar {
 					return false;
 				}
 			}
-
-			[...document.querySelectorAll('[data-vg-dismiss="sidebar"]')].forEach(function (cross) {
-				cross.onclick = function () {
-					let target = cross.dataset.vgTarget || cross.closest('.vg-sidebar').id || null;
-
-					if (target) {
-						if (target.indexOf('#') !== -1) target = target.slice(1);
-						VGSidebar.getInstance(target).hide();
-					}
-
-					return false;
-				}
-			});
-
-			if (_this.settings.keyboard) {
-				document.onkeyup = function(e) {
-					if (e.key === "Escape") {
-						_this.hide();
-					}
-
-					return false;
-				};
-			}
 		}
+
+		[...document.querySelectorAll('[data-vg-dismiss="sidebar"]')].forEach(function (cross) {
+			cross.onclick = function () {
+				let target = cross.dataset.vgTarget || cross.closest('.vg-sidebar').id || null;
+
+				if (target) {
+					if (target.indexOf('#') !== -1) target = target.slice(1);
+					VGSidebar.getInstance(target).hide();
+				}
+
+				return false;
+			}
+		});
+
+		if (_this.settings.keyboard) {
+			document.onkeyup = function(e) {
+				if (e.key === "Escape") {
+					_this.hide();
+				}
+
+				return false;
+			};
+		}
+	}
+
+	_route() {
+		const _this = this;
+
+		let $content = document.querySelector(_this.settings.ajax.target);
+		if ($content) {
+			let request = new XMLHttpRequest();
+			request.open("get", _this.settings.ajax.route, true);
+			request.onload = function() {
+				setData(request.responseText);
+			};
+			request.send();
+		}
+
+		const setData = (data) => {
+			$content.innerHTML = data;
+		};
 	}
 }
 
@@ -222,11 +271,16 @@ class VGSidebar {
 		let arg = getDataAttributes(btn, true),
 			target = arg.target || btn.getAttribute('href') || null;
 
+		delete arg['target'];
+		delete arg['toggle'];
+
 		if (target && typeof target === 'string') {
 			target = target.slice(1);
 
 			new VGSidebar(target, arg)
 		}
+
+		return false;
 	}
 });
 

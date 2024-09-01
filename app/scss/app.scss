@@ -102,6 +102,19 @@
 		position: relative;
 		display: flex;
 		align-items: center;
-		padding: 1rem;
+		padding: var(--vg-sidebar-padding);
+		border-bottom: var(--vg-sidebar-border);
+	}
+
+	&-body {
+		height: calc(100% - var(--vg-sidebar-header-height) - var(--vg-sidebar-footer-height));
+		overflow-y: auto;
+		padding: var(--vg-sidebar-padding);
+	}
+
+	&-footer {
+		height: var(--vg-sidebar-footer-height);
+		padding: var(--vg-sidebar-padding);
+		border-top: var(--vg-sidebar-border);
 	}
 }
