@@ -14,23 +14,72 @@
 }
 
 .vg-sidebar {
-	display: none;
-	opacity: 0;
-	visibility: hidden;
 	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background: var(--vg-sidebar-backdrop-bg);
+	width: auto;
+	height: auto;
 	transition: all .5s ease-in-out;
+	z-index: 1040;
+	background: var(--vg-sidebar-bg-color);
+	color: var(--vg-sidebar-color);
+	box-shadow: var(--vg-sidebar-box-shadow);
 
-	&:not(.show) {
-		display: block;
+	&.left, &.right {
+		width: var(--vg-sidebar-horizontal-width);
+		height: 100vh;
+		top: 0;
 	}
 
-	.show.fade {
-		opacity: 1;
-		visibility: visible;
+	&.left {
+		left: -100%;
+
+		&.show {
+			left: 0;
+		}
+	}
+
+	&.right {
+		right: -100%;
+
+		&.show {
+			right: 0;
+		}
+	}
+
+	&.top, &.bottom {
+		height: var(--vg-sidebar-vertical-height);
+		width: 100vw;
+		left: 0;
+	}
+
+	&.top {
+		top: -100%;
+
+		&.show {
+			top: 0;
+		}
+	}
+
+	&.bottom {
+		bottom: -100%;
+
+		&.show {
+			bottom: 0;
+		}
+	}
+
+	&-backdrop {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background: var(--vg-sidebar-backdrop-bg);
+		transition: all .5s ease-in-out;
+		opacity: 0;
+		z-index: 999;
+
+		&.fade {
+			opacity: var(--vg-sidebar-backdrop-opacity);
+		}
 	}
 }

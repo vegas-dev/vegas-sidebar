@@ -59,10 +59,11 @@ const defaultSettings = {
 	keyboard: true
 }
 
+let _isShown = false;
+
 class VGSidebar {
 	constructor(element, arg) {
 		this.element = null;
-		this._isShown = false;
 
 		if (!element) {
 			console.error('Первый параметр не должен быть пустым');
@@ -90,31 +91,90 @@ class VGSidebar {
 	init() {
 		const _this = this;
 
-		console.log('toggle', _this._isShown)
-
 		_this.toggle();
+		_this._addEventListener();
 	}
 
 	toggle() {
-		return this._isShown ? this.hide() : this.show();
+		return _isShown ? this.hide() : this.show();
 	}
 
 	show() {
 		const _this = this;
 
-		if (_this._isShown) return;
-		_this._isShown = true;
+		if (_isShown) return;
+		_isShown = true;
 
-		console.log('show')
+		_this._backdrop();
+		_this._overflow();
+		_this.element.classList.add('show');
 	}
 
 	hide() {
 		const _this = this;
 
-		if (!this._isShown) return;
-		_this._isShown = false;
+		if (!_isShown) return;
+		_isShown = false;
 
-		console.log('hide')
+		_this._backdrop();
+		_this._overflow();
+		_this.element.classList.remove('show');
+	}
+
+	_backdrop() {
+		let _this = this,
+			backdrop = document.querySelector('.vg-sidebar-backdrop');
+
+		if (!_this.settings.backdrop) return;
+
+		if (backdrop) {
+			backdrop.remove();
+		} else {
+			backdrop = document.createElement('div');
+			backdrop.classList.add('vg-sidebar-backdrop');
+
+			document.body.append(backdrop);
+
+			setTimeout(() => {
+				backdrop.classList.add('fade')
+			}, 100)
+		}
+	}
+
+	_overflow() {
+		const _this = this;
+
+		if (!_this.settings.overflow) {
+			return;
+		}
+
+		if (!_isShown) {
+			document.body.style.overflow = '';
+			document.body.style.paddingRight = '';
+		} else {
+			document.body.style.overflow = 'hidden';
+			document.body.style.paddingRight = getWidth() + 'px';
+		}
+
+		function getWidth() {
+			const documentWidth = document.documentElement.clientWidth
+			return Math.abs(window.innerWidth - documentWidth)
+		}
+	}
+
+	_addEventListener() {
+		if (_isShown) {
+			const _this = this;
+			let backdrop = document.querySelector('.vg-sidebar-backdrop');
+
+			if (backdrop) {
+				backdrop.onclick = function () {
+					_this.hide();
+
+					return false;
+				}
+			}
+		}
 	}
 }
 
