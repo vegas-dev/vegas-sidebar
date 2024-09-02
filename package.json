@@ -1,6 +1,6 @@
 {
 	"name": "vgsidebar",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "App for creating custom sidebars, is written in JQuery, html5 and ССS3 using the compiler SCSS",
 	"author": {
 		"name": "Vegas Studio",

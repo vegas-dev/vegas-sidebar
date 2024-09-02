@@ -118,9 +118,6 @@ class VGSidebar {
 			let svg = cross.querySelector('svg');
 			if (!svg) cross.insertAdjacentHTML('beforeend', _this.cross);
 		}
-
-		_this.toggle();
-		_this._addEventListener();
 	}
 
 	toggle() {
@@ -143,7 +140,9 @@ class VGSidebar {
 			if (_this.settings.ajax.route && _this.settings.ajax.target) _this._route();
 
 			eventHandler.on(_this.element, EVENT_KEY_SHOWN);
-		}, 50)
+		}, 50);
+
+		_this._addEventListener();
 	}
 
 	hide() {
@@ -183,7 +182,7 @@ class VGSidebar {
 
 			setTimeout(() => {
 				backdrop.classList.add('fade')
-			}, 100)
+			}, 50)
 		}
 	}
 
@@ -211,15 +210,12 @@ class VGSidebar {
 	_addEventListener() {
 		const _this = this;
 
-		if (_isShown) {
-			let backdrop = document.querySelector('.vg-sidebar-backdrop');
+		let backdrop = document.querySelector('.vg-sidebar-backdrop');
+		if (backdrop) {
+			backdrop.onclick = function () {
+				_this.hide();
 
-			if (backdrop) {
-				backdrop.onclick = function () {
-					_this.hide();
-
-					return false;
-				}
+				return false;
 			}
 		}
 
@@ -277,7 +273,8 @@ class VGSidebar {
 		if (target && typeof target === 'string') {
 			target = target.slice(1);
 
-			new VGSidebar(target, arg)
+			let sidebar = new VGSidebar(target, arg);
+			sidebar.toggle();
 		}
 
 		return false;
