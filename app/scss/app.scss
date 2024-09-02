@@ -11,6 +11,10 @@
 
 :root {
 	@include mix-vars('sidebar', $sidebar-map, $prefix);
+
+	@media screen and (max-width: 401px) {
+		--vg-sidebar-horizontal-width: 100%;
+	}
 }
 
 .vg-sidebar {
