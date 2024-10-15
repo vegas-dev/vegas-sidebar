@@ -197,8 +197,8 @@ class VGSidebar {
 			document.body.style.overflow = '';
 			document.body.style.paddingRight = '';
 		} else {
-			document.body.style.overflow = 'hidden';
 			document.body.style.paddingRight = getWidth() + 'px';
+			document.body.style.overflow = 'hidden';
 		}
 
 		function getWidth() {
