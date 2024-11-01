@@ -11,6 +11,8 @@ const EVENT_KEY_HIDE = 'vg.sidebar.hide';
 const EVENT_KEY_HIDDEN   = 'vg.sidebar.hidden';
 const EVENT_KEY_SHOW  = 'vg.sidebar.show';
 const EVENT_KEY_SHOWN  = 'vg.sidebar.shown';
+const EVENT_KEY_LOADED  = 'vg.sidebar.loaded';
+
 
 /**
  * Установка параметров
@@ -138,7 +140,6 @@ class VGSidebar {
 
 		setTimeout(() => {
 			if (_this.settings.ajax.route && _this.settings.ajax.target) _this._route();
-
 			eventHandler.on(_this.element, EVENT_KEY_SHOWN);
 		}, 50);
 
@@ -252,6 +253,7 @@ class VGSidebar {
 			request.open("get", _this.settings.ajax.route, true);
 			request.onload = function() {
 				setData(request.responseText);
+				eventHandler.on(_this.element, EVENT_KEY_LOADED);
 			};
 			request.send();
 		}
