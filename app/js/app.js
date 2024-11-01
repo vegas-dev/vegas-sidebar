@@ -8,10 +8,10 @@ import {
 } from "./_util/function";
 
 const EVENT_KEY_HIDE = 'vg.sidebar.hide';
-const EVENT_KEY_HIDDEN   = 'vg.sidebar.hidden';
-const EVENT_KEY_SHOW  = 'vg.sidebar.show';
-const EVENT_KEY_SHOWN  = 'vg.sidebar.shown';
-const EVENT_KEY_LOADED  = 'vg.sidebar.loaded';
+const EVENT_KEY_HIDDEN = 'vg.sidebar.hidden';
+const EVENT_KEY_SHOW = 'vg.sidebar.show';
+const EVENT_KEY_SHOWN = 'vg.sidebar.shown';
+const EVENT_KEY_LOADED = 'vg.sidebar.loaded';
 
 
 /**
@@ -84,11 +84,11 @@ class VGSidebar {
 	constructor(element, arg = {}) {
 		this.element = null;
 		this.cross = '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"' +
-		'\t viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">' +
-		'<path d="M89.7,10.3L89.7,10.3c-1-1-2.6-1-3.5,0L50,46.5L13.9,10.3c-1-1-2.6-1-3.5,0l0,0c-1,1-1,2.6,0,3.5L46.5,50L10.3,86.1' +
-		'\tc-1,1-1,2.6,0,3.5h0c1,1,2.6,1,3.5,0L50,53.5l36.1,36.1c1,1,2.6,1,3.5,0l0,0c1-1,1-2.6,0-3.5L53.5,50l36.1-36.1' +
-		'\tC90.6,12.9,90.6,11.3,89.7,10.3z"/>' +
-		'</svg>';
+			'\t viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">' +
+			'<path d="M89.7,10.3L89.7,10.3c-1-1-2.6-1-3.5,0L50,46.5L13.9,10.3c-1-1-2.6-1-3.5,0l0,0c-1,1-1,2.6,0,3.5L46.5,50L10.3,86.1' +
+			'\tc-1,1-1,2.6,0,3.5h0c1,1,2.6,1,3.5,0L50,53.5l36.1,36.1c1,1,2.6,1,3.5,0l0,0c1-1,1-2.6,0-3.5L53.5,50l36.1-36.1' +
+			'\tC90.6,12.9,90.6,11.3,89.7,10.3z"/>' +
+			'</svg>';
 
 		if (!element) {
 			console.error('Первый параметр не должен быть пустым');
@@ -120,6 +120,8 @@ class VGSidebar {
 			let svg = cross.querySelector('svg');
 			if (!svg) cross.insertAdjacentHTML('beforeend', _this.cross);
 		}
+
+		this.element.vgSidebar = this;
 	}
 
 	toggle() {
@@ -163,8 +165,28 @@ class VGSidebar {
 		}, 50)
 	}
 
-	static getInstance(target, arg = {}) {
-		return new VGSidebar(target, arg);
+	static getInstance(target) {
+		if (typeof target === 'string') target = document.querySelector(target)
+		return target?.vgSidebar;
+	}
+
+	static makeInit(btn) {
+		btn.addEventListener('click', () => {
+			let arg = getDataAttributes(btn, true),
+				target = arg.target || btn.getAttribute('href') || null;
+
+			delete arg['target'];
+			delete arg['toggle'];
+
+			if (target && typeof target === 'string') {
+				target = target.slice(1);
+
+				let sidebar = new VGSidebar(target, arg);
+				sidebar.toggle();
+			}
+
+			return false;
+		});
 	}
 
 	_backdrop() {
@@ -222,10 +244,9 @@ class VGSidebar {
 
 		[...document.querySelectorAll('[data-vg-dismiss="sidebar"]')].forEach(function (cross) {
 			cross.onclick = function () {
-				let target = cross.dataset.vgTarget || cross.closest('.vg-sidebar').id || null;
+				let target = cross.dataset.vgTarget || cross.closest('.vg-sidebar') || null;
 
 				if (target) {
-					if (target.indexOf('#') !== -1) target = target.slice(1);
 					VGSidebar.getInstance(target).hide();
 				}
 
@@ -234,7 +255,7 @@ class VGSidebar {
 		});
 
 		if (_this.settings.keyboard) {
-			document.onkeyup = function(e) {
+			document.onkeyup = function (e) {
 				if (e.key === "Escape") {
 					_this.hide();
 				}
@@ -251,7 +272,7 @@ class VGSidebar {
 		if ($content) {
 			let request = new XMLHttpRequest();
 			request.open("get", _this.settings.ajax.route, true);
-			request.onload = function() {
+			request.onload = function () {
 				setData(request.responseText);
 				eventHandler.on(_this.element, EVENT_KEY_LOADED);
 			};
@@ -265,22 +286,7 @@ class VGSidebar {
 }
 
 [...document.querySelectorAll('[data-vg-toggle="sidebar"]')].forEach(function (btn) {
-	btn.onclick = function () {
-		let arg = getDataAttributes(btn, true),
-			target = arg.target || btn.getAttribute('href') || null;
-
-		delete arg['target'];
-		delete arg['toggle'];
-
-		if (target && typeof target === 'string') {
-			target = target.slice(1);
-
-			let sidebar = new VGSidebar(target, arg);
-			sidebar.toggle();
-		}
-
-		return false;
-	}
+	VGSidebar.makeInit(btn);
 });
 
 export default VGSidebar;
