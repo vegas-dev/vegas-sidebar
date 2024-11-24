@@ -5,6 +5,8 @@ import VGSidebar from "./app/js/app";
 	VGSidebar.makeInit(btn);
 });
 
+
+
 export {
 	VGSidebar
 }
