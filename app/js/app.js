@@ -12,8 +12,7 @@ const EVENT_KEY_SHOW = 'vg.sidebar.show';
 const EVENT_KEY_SHOWN = 'vg.sidebar.shown';
 const EVENT_KEY_LOADED = 'vg.sidebar.loaded';
 
-let _isShown = false,
-	_cross = '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"' +
+let	_cross = '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"' +
 		'\t viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">' +
 		'<path d="M89.7,10.3L89.7,10.3c-1-1-2.6-1-3.5,0L50,46.5L13.9,10.3c-1-1-2.6-1-3.5,0l0,0c-1,1-1,2.6,0,3.5L46.5,50L10.3,86.1' +
 		'\tc-1,1-1,2.6,0,3.5h0c1,1,2.6,1,3.5,0L50,53.5l36.1,36.1c1,1,2.6,1,3.5,0l0,0c1-1,1-2.6,0-3.5L53.5,50l36.1-36.1' +
@@ -23,6 +22,8 @@ let _isShown = false,
 class VGSidebar extends BaseModule{
 	constructor(element, arg = {}) {
 		super();
+
+		this._isShown = false;
 		this.paramsDefault = {
 			backdrop: true,
 			overflow: true,
@@ -75,14 +76,14 @@ class VGSidebar extends BaseModule{
 	}
 
 	toggle() {
-		return _isShown ? this.hide() : this.show();
+		return this._isShown ? this.hide() : this.show();
 	}
 
 	show() {
 		const _this = this;
 
-		if (_isShown) return;
-		_isShown = true;
+		if (this._isShown) return;
+		this._isShown = true;
 
 		eventHandler.on(_this.element, EVENT_KEY_SHOW);
 
@@ -101,8 +102,8 @@ class VGSidebar extends BaseModule{
 	hide() {
 		const _this = this;
 
-		if (!_isShown) return;
-		_isShown = false;
+		if (!this._isShown) return;
+		this._isShown = false;
 
 		eventHandler.on(_this.element, EVENT_KEY_HIDE);
 
@@ -164,7 +165,7 @@ class VGSidebar extends BaseModule{
 			return;
 		}
 
-		if (!_isShown) {
+		if (!this._isShown) {
 			document.body.style.overflow = '';
 			document.body.style.paddingRight = '';
 		} else {
