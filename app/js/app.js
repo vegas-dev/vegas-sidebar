@@ -23,7 +23,6 @@ class VGSidebar extends BaseModule{
 	constructor(element, arg = {}) {
 		super();
 
-		this._isShown = false;
 		this.paramsDefault = {
 			backdrop: true,
 			overflow: true,
@@ -76,14 +75,11 @@ class VGSidebar extends BaseModule{
 	}
 
 	toggle() {
-		return this._isShown ? this.hide() : this.show();
+		return this._isShown() ? this.hide() : this.show();
 	}
 
 	show() {
 		const _this = this;
-
-		if (this._isShown) return;
-		this._isShown = true;
 
 		eventHandler.on(_this.element, EVENT_KEY_SHOW);
 
@@ -102,9 +98,6 @@ class VGSidebar extends BaseModule{
 	hide() {
 		const _this = this;
 
-		if (!this._isShown) return;
-		this._isShown = false;
-
 		eventHandler.on(_this.element, EVENT_KEY_HIDE);
 
 		_this._backdrop();
@@ -114,6 +107,10 @@ class VGSidebar extends BaseModule{
 		setTimeout(() => {
 			eventHandler.on(_this.element, EVENT_KEY_HIDDEN);
 		}, 50)
+	}
+
+	_isShown() {
+		return this.element.classList.contains('show')
 	}
 
 	static getInstance(target) {
